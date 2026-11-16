@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПВМК — Пермский военно-мемориальный комплекс</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{--bg:#0a0a0f;--bg2:#12121a;--gold:#c9a227;--gold-soft:#e8d48b;--text:#e8e6e1;--muted:#8a8794;--glass:rgba(255,255,255,.04);--glass-border:rgba(255,255,255,.08);--radius:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(201,162,39,.12),transparent),radial-gradient(ellipse 60% 40% at 80% 110%,rgba(201,162,39,.08),transparent);pointer-events:none;z-index:0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:background .4s,backdrop-filter .4s}
+nav.scrolled{background:rgba(10,10,15,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--gold);letter-spacing:.5px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .3s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--gold);color:var(--bg)!important;padding:10px 22px;border-radius:50px;font-weight:600}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.burger span{width:26px;height:2px;background:var(--text);transition:.3s}
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);border-radius:50px;padding:8px 18px;font-size:.8rem;color:var(--gold-soft);margin-bottom:24px;opacity:0;transform:translateY(20px)}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4.2rem);font-weight:700;line-height:1.15;margin-bottom:24px;opacity:0;transform:translateY(30px)}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:480px;margin-bottom:36px;opacity:0;transform:translateY(30px)}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transform:translateY(30px)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .3s;cursor:pointer;border:none}
+.btn-primary{background:var(--gold);color:var(--bg)}
+.btn-primary:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,162,39,.3)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--glass-border)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.hero-visual{position:relative;opacity:0;transform:scale(.9)}
+.hero-orb{width:100%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(201,162,39,.25),transparent 60%),radial-gradient(circle at 70% 70%,rgba(100,100,140,.15),transparent 60%);border:1px solid var(--glass-border);position:relative;overflow:hidden}
+.hero-orb::after{content:'';position:absolute;inset:-30%;background:conic-gradient(from 0deg,transparent,rgba(201,162,39,.15),transparent 30%);animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-orb-inner{position:absolute;inset:15%;border-radius:50%;background:var(--bg2);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+.hero-orb-inner .num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:var(--gold)}
+.hero-orb-inner .lbl{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
+section{padding:100px 0}
+.section-head{text-align:center;margin-bottom:60px}
+.section-head .eyebrow{color:var(--gold);font-size:.8rem;text-transform:uppercase;letter-spacing:3px;margin-bottom:12px;opacity:0;transform:translateY(20px)}
+.section-head h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;opacity:0;transform:translateY(20px)}
+.section-head p{color:var(--muted);max-width:560px;margin:16px auto 0;opacity:0;transform:translateY(20px)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.service-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px 28px;transition:all .4s;opacity:0;transform:translateY(40px)}
+.service-card:hover{border-color:rgba(201,162,39,.3);transform:translateY(-6px);background:rgba(255,255,255,.06)}
+.service-card .icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(201,162,39,.2),rgba(201,162,39,.05));display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
+.service-card h3{font-size:1.15rem;font-weight:600;margin-bottom:10px}
+.service-card p{color:var(--muted);font-size:.9rem}
+.stats{background:var(--bg2);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;text-align:center}
+.stat-item{opacity:0;transform:translateY(30px)}
+.stat-item .value{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--gold);line-height:1}
+.stat-item .label{color:var(--muted);font-size:.85rem;margin-top:8px;text-transform:uppercase;letter-spacing:1.5px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-text{opacity:0;transform:translateX(-40px)}
+.about-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:20px}
+.about-text p{color:var(--muted);margin-bottom:16px}
+.about-visual{opacity:0;transform:translateX(40px)}
+.about-frame{border-radius:var(--radius);border:1px solid var(--glass-border);background:var(--glass);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.about-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,162,39,.1),transparent 50%)}
+.about-frame .placeholder{color:var(--muted);font-size:.9rem;text-align:center;padding:20px}
+.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contact-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px;opacity:0;transform:translateY(40px)}
+.contact-card h3{font-size:1.1rem;margin-bottom:16px;color:var(--gold)}
+.contact-card p,.contact-card a{color:var(--muted);text-decoration:none;font-size:.95rem;display:block;margin-bottom:10px;transition:color .3s}
+.contact-card a:hover{color:var(--text)}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.contact-form input,.contact-form textarea{background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;padding:14px 18px;color:var(--text);font-family:inherit;font-size:.95rem;transition:border-color .3s;outline:none}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold)}
+.contact-form textarea{resize:vertical;min-height:120px}
+footer{border-top:1px solid var(--glass-border);padding:40px 0;text-align:center;color:var(--muted);font-size:.8rem}
+@media(max-width:900px){.nav-links{display:none}.burger{display:flex}.hero-grid,.about-grid,.contacts-grid{grid-template-columns:1fr}.hero-visual{max-width:400px;margin:0 auto}section{padding:70px 0}}
+.nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;right:24px;background:var(--bg2);border:1px solid var(--glass-border);border-radius:16px;padding:20px;gap:16px;min-width:200px}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">ПВМК</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#about">О комплексе</a></li>
+      <li><a href="#stats">Наши цифры</a></li>
+      <li><a href="#contacts" class="nav-cta">Связаться</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">Пермский военно-мемориальный комплекс</div>
+      <h1>Память, <em>которую</em> сохраняют</h1>
+      <p>Ритуальные услуги, памятники и мемориальные комплексы в Перми. Создаём вечные символы с уважением к каждой истории.</p>
+      <div class="hero-actions">
+        <a href="#contacts" class="btn btn-primary">Оставить заявку</a>
+        <a href="#services" class="btn btn-ghost">Наши услуги</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-orb">
+        <div class="hero-orb-inner">
+          <span class="num" data-count="25">0</span>
+          <span class="lbl">лет опыта</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Что мы делаем</div>
+      <h2>Услуги</h2>
+      <p>Полный цикл ритуальных услуг — от консультации до установки мемориала</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card"><div class="icon">🗿</div><h3>Памятники</h3><p>Изготовление и установка памятников из гранита, мрамора и других материалов. Индивидуальный дизайн под любой бюджет.</p></div>
+      <div class="service-card"><div class="icon">🕯️</div><h3>Ритуальные услуги</h3><p>Организация похорон и поминок, помощь в документах, транспорт, сопровождение на всех этапах.</p></div>
+      <div class="service-card"><div class="icon">⚔️</div><h3>Военные мемориалы</h3><p>Специализация на воинских захоронениях, обелисках и мемориальных плитах для ветеранов.</p></div>
+      <div class="service-card"><div class="icon">🌿</div><h3>Озеленение и благоустройство</h3><p>Оформление могильных участков, посадка растений, установка ограждений и столиков.</p></div>
+      <div class="service-card"><div class="icon">🔨</div><h3>Реставрация</h3><p>Восстановление и реставрация существующих памятников и мемориальных конструкций.</p></div>
+      <div class="service-card"><div class="icon">📋</div><h3>Консультации</h3><p>Бесплатные консультации по выбору материалов, форм и способов увековечения памяти.</p></div>
+    </div>
+  </div>
+</section>
+<section class="stats" id="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat-item"><div class="value" data-count="2500">0</div><div class="label">Установленных памятников</div></div>
+      <div class="stat-item"><div class="value" data-count="18000">0</div><div class="label">Обслуженных семей</div></div>
+      <div class="stat-item"><div class="value" data-count="25">0</div><div class="label">Лет на рынке</div></div>
+      <div class="stat-item"><div class="value" data-count="40">0</div><div class="label">Мастеров в команде</div></div>
+    </div>
+  </div>
+</section>
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-text">
+      <div class="eyebrow" style="color:var(--gold);font-size:.8rem;text-transform:uppercase;letter-spacing:3px;margin-bottom:12px">О нас</div>
+      <h2>Пермский военно-мемориальный комплекс</h2>
+      <p>Мы работаем с 2001 года и специализируемся на создании мемориалов, которые передают уважение и память через поколения.</p>
+      <p>Наш комплекс расположен на шоссе Космонавтов, 403 — здесь вы можете увидеть примеры работ, выбрать материал и обсудить проект с мастером.</p>
+      <p>Каждый памятник — это история. Мы помогаем рассказать её достойно.</p>
+    </div>
+    <div class="about-visual">
+      <div class="about-frame"><div class="placeholder">Фото комплекса<br>или пример работы</div></div>
+    </div>
+  </div>
+</section>
+<section id="contacts">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Контакты</div>
+      <h2>Свяжитесь с нами</h2>
+      <p>Приедем на консультацию, подскажем по материалам и срокам</p>
+    </div>
+    <div class="contacts-grid">
+      <div class="contact-card">
+        <h3>Адрес и телефон</h3>
+        <p>📍 Пермь, ш. Космонавтов, 403</p>
+        <a href="tel:+73422982959">📞 (342) 298-29-59</a>
+        <a href="https://t.me/stvnislvvv" target="_blank">✈️ Telegram: @stvnislvvv</a>
+        <p>🕐 Пн–Пт: 9:00–18:00, Сб: 10:00–15:00</p>
+      </div>
+      <div class="contact-card">
+        <h3>Оставить заявку</h3>
+        <form class="contact-form" onsubmit="event.preventDefault();this.reset();alert('Заявка отправлена! Мы свяжемся с вами.')">
+          <input type="text" placeholder="Ваше имя" required>
+          <input type="tel" placeholder="Телефон" required>
+          <textarea placeholder="Какой памятник или услуга вас интересует?"></textarea>
+          <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<footer><div class="wrap">© 2026 ПВМК — Пермский военно-мемориальный комплекс. Демо-версия.</div></footer>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);});
+document.getElementById('burger').addEventListener('click',()=>{document.getElementById('navLinks').classList.toggle('open');});
+const heroTl=gsap.timeline({delay:.3});
+heroTl.to('.hero-badge',{opacity:1,y:0,duration:.8,ease:'power3.out'}).to('.hero h1',{opacity:1,y:0,duration:1,ease:'power3.out'},'-=.4').to('.hero p',{opacity:1,y:0,duration:.8,ease:'power3.out'},'-=.5').to('.hero-actions',{opacity:1,y:0,duration:.8,ease:'power3.out'},'-=.4').to('.hero-visual',{opacity:1,scale:1,duration:1.2,ease:'power3.out'},'-=.8);
+gsap.utils.toArray('.section-head .eyebrow,.section-head h2,.section-head p').forEach(el=>{gsap.to(el,{opacity:1,y:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'}});});
+gsap.utils.toArray('.service-card').forEach((card,i)=>{gsap.to(card,{opacity:1,y:0,duration:.8,ease:'power3.out',delay:i*.1,scrollTrigger:{trigger:card,start:'top 85%'}});});
+gsap.utils.toArray('.stat-item').forEach((item,i)=>{gsap.to(item,{opacity:1,y:0,duration:.8,ease:'power3.out',delay:i*.15,scrollTrigger:{trigger:item,start:'top 85%'}});const val=item.querySelector('.value');const target=+val.dataset.count;ScrollTrigger.create({trigger:item,start:'top 85%',once:true,onEnter:()=>{gsap.to({v:0},{v:target,duration:2,ease:'power2.out',onUpdate:function(){val.textContent=Math.round(this.targets()[0].v).toLocaleString('ru-RU');}});});});
+gsap.to('.about-text',{opacity:1,x:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.about-text',start:'top 80%'}});
+gsap.to('.about-visual',{opacity:1,x:0,duration:1,ease:'power3.out',delay:.2,scrollTrigger:{trigger:'.about-visual',start:'top 80%'}});
+gsap.utils.toArray('.contact-card').forEach((card,i)=>{gsap.to(card,{opacity:1,y:0,duration:.8,ease:'power3.out',delay:i*.2,scrollTrigger:{trigger:card,start:'top 85%'}});});
+</script>
+</body>
+</html>
