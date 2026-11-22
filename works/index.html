@@ -8,7 +8,7 @@
 <title>Работы — ПВМК</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Ruslan+Display&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -22,7 +22,7 @@
   --muted: #c4bdb2;
   --line: rgba(243, 238, 230, .14);
   --header: 72px;
-  --serif: "Cormorant Garamond", Georgia, serif;
+  --serif: "Ruslan Display", Georgia, serif;
   --sans: Manrope, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -36,14 +36,14 @@ button { font: inherit; color: inherit; }
 .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
 nav { position: sticky; top: 0; z-index: 20; background: rgba(12, 11, 10, .94); border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
 .nav-inner { min-height: var(--header); display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-.logo { font-family: var(--serif); font-size: 1.7rem; letter-spacing: .06em; text-decoration: none; color: var(--brass-2); }
+.logo { font-family: var(--serif); font-size: 1.85rem; font-weight: 400; letter-spacing: .02em; text-decoration: none; color: var(--brass-2); }
 .nav-links { display: flex; gap: 22px; list-style: none; padding: 0; }
 .nav-links a { text-decoration: none; color: var(--muted); font-size: .92rem; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); }
 .phone { color: var(--text); text-decoration: none; font-weight: 700; white-space: nowrap; }
 .burger { display: none; width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); font-size: 1.4rem; }
 header.page { padding: 48px 0 10px; }
-h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.02; margin: 10px 0 12px; }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 5vw, 4.2rem); line-height: 1.12; letter-spacing: .01em; margin: 10px 0 12px; }
 .lead { color: var(--muted); max-width: 38rem; }
 .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 36px 0 72px; }
 .shot { margin: 0; background: var(--bg-2); border-radius: 16px; overflow: hidden; border: 1px solid var(--line); }
