@@ -1,16 +1,16 @@
 .a11y-toggle {
   background: transparent;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  color: var(--muted, #c4bdb2);
+  border: 0;
+  color: var(--brass-2, #e4cf9a);
   cursor: pointer;
   font: inherit;
-  font-size: .86rem;
+  font-size: .92rem;
   font-weight: 500;
-  min-height: 40px;
-  padding: 6px 12px;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
-.a11y-toggle:hover { color: var(--text, #f3eee6); }
+.a11y-toggle:hover { color: #fff; }
 html.a11y {
   scroll-padding-top: 96px;
 }
@@ -78,7 +78,14 @@ html.a11y .a11y-toggle {
   color: #000 !important;
   border-color: #000 !important;
 }
-html.a11y .a11y-toggle { font-weight: 700 !important; background: #fff !important; }
+html.a11y .a11y-toggle {
+  font-size: .92rem !important;
+  font-weight: 700 !important;
+  color: #000 !important;
+  background: #ffe14a !important;
+  padding: 0 4px !important;
+  text-decoration: underline;
+}
 html.a11y .service-card,
 html.a11y .office,
 html.a11y .form-card,
