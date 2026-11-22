@@ -71,12 +71,12 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.08; }
 .spectrum {
   --card: 200px;
   display: flex;
-  gap: 22px;
+  gap: 28px;
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding: 34px calc(50vw - var(--card) / 2) 40px 0;
+  padding: 64px calc(50vw - var(--card) / 2) 72px 0;
   scrollbar-width: none;
 }
 .spectrum::-webkit-scrollbar { display: none; }
@@ -99,11 +99,12 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.08; }
   z-index: 1;
 }
 .service-card.is-selected {
-  transform: scale(1.22);
+  transform: scale(1.55);
   transform-origin: center center;
   z-index: 2;
   border-color: rgba(198, 161, 90, .75);
   background: linear-gradient(180deg, rgba(198, 161, 90, .16), rgba(255,255,255,.04));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
 }
 .service-card:first-child.is-selected { transform-origin: left center; }
 .service-card em { font-style: normal; color: var(--brass); font-size: .75rem; font-weight: 400; letter-spacing: .08em; }
@@ -148,7 +149,6 @@ footer a { color: var(--text); }
     <ul class="nav-links" id="navLinks">
       <li><a href="#services">Услуги</a></li>
       <li><a href="works/">Работы</a></li>
-      <li><a href="#memory">Книга памяти</a></li>
       <li><a href="#about">О комплексе</a></li>
       <li><a href="#contacts">Контакты</a></li>
     </ul>
@@ -178,7 +178,7 @@ footer a { color: var(--text); }
     </div>
       <div class="spectrum" id="spectrum" tabindex="0" aria-label="Спектр услуг">
           <a class="service-card" href="works/"><em>Каталог</em><strong>Работы</strong><span>Открыть примеры памятников: порода камня и форма стелы</span></a>
-          <a class="service-card" href="#memory"><em>Проект</em><strong>Книга памяти</strong><span>Человек жив, пока жива память о нём</span></a>
+          <a class="service-card" href="memory/"><em>Проект</em><strong>Книга памяти</strong><span>Человек жив, пока жива память о нём</span></a>
           <a class="service-card" href="#about"><em>01</em><strong>Ритуальные услуги</strong><span>Полный комплекс и ассортимент ритуальной продукции</span></a>
           <a class="service-card" href="works/"><em>02</em><strong>Гранитные</strong><span>Памятники из гранита разных пород</span></a>
           <a class="service-card" href="works/"><em>03</em><strong>Мраморные</strong><span>Памятники из мрамора</span></a>
@@ -191,25 +191,6 @@ footer a { color: var(--text); }
           <a class="service-card" href="#about"><em>10</em><strong>Столы и лавки</strong><span>Каменные столы и скамьи</span></a>
           <a class="service-card" href="#about"><em>11</em><strong>Вазы</strong><span>Вазы и аксессуары из камня или бронзы</span></a>
           <a class="service-card" href="#about"><em>12</em><strong>Благоустройство</strong><span>Плитка, облицовка, уход, хранение и установка</span></a>
-    </div>
-  </section>
-  <section id="memory">
-    <div class="wrap">
-      <div class="section-head pop">
-        <h2>Книга памяти</h2>
-        <p class="note">Открытый проект ПВМК</p>
-      </div>
-      <div class="prose">
-        <div class="pop">
-          <p>Дорогие друзья и гости нашего сайта! Пермский военно-мемориальный комплекс запускает открытый проект «Книга памяти — человек жив, пока жива память о нём».</p>
-          <p>Если раньше наша организация помогала сохранить память о близких в камне, то с вашей помощью мы делаем это и на сайте. Любой человек индивидуален: его биография, привычки, достоинства. В проекте «Книга памяти» мы возрождаем неповторимые жизни и судьбы людей.</p>
-        </div>
-        <div class="pop">
-          <p>Если вы хотите поделиться памятью о близких и рассказать об их жизни, напишите нам. Мы создаём страницы Книги памяти, ориентируясь на нашу информационную базу.</p>
-          <p>Для удобства книга разделена на главы-категории и алфавитный указатель фамилий.</p>
-          <p style="margin-top:18px"><a class="btn btn-primary" href="#contacts">Написать в книгу</a></p>
-        </div>
-      </div>
     </div>
   </section>
   <section id="about">

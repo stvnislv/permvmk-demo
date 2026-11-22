@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Книга памяти ПВМК: человек жив, пока жива память о нём.">
+<meta name="theme-color" content="#0c0b0a">
+<title>Книга памяти — ПВМК</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0b0a;
+  --ink: #1a140c;
+  --brass: #c6a15a;
+  --brass-2: #e4cf9a;
+  --text: #f3eee6;
+  --muted: #c4bdb2;
+  --line: rgba(243, 238, 230, .14);
+  --header: 72px;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: Manrope, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 1.05rem; font-weight: 300; line-height: 1.65; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 3px; }
+.wrap { width: min(760px, calc(100% - 40px)); margin: 0 auto; }
+nav { position: sticky; top: 0; z-index: 20; background: rgba(12, 11, 10, .94); border-bottom: 1px solid var(--line); }
+.nav-inner { min-height: var(--header); width: min(1120px, calc(100% - 40px)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.logo { font-family: var(--serif); font-size: 1.7rem; font-weight: 400; letter-spacing: .04em; text-decoration: none; color: var(--brass-2); display: inline-block; transform: scaleX(.92) scaleY(1.18); transform-origin: left center; }
+.phone { text-decoration: none; font-weight: 400; }
+.page { padding: 48px 0 72px; }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -.03em; margin: 10px 0 18px; display: inline-block; transform: scaleX(.92) scaleY(1.18); transform-origin: left center; }
+.kicker { color: var(--brass); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
+p + p { margin-top: 14px; }
+.lead, p { color: var(--muted); }
+.btn { display: inline-flex; margin-top: 22px; min-height: 48px; padding: 12px 22px; border-radius: 999px; background: var(--brass); color: var(--ink); text-decoration: none; font-weight: 400; }
+footer { border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--muted); }
+footer a { color: var(--text); text-decoration: none; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="../">ПВМК</a>
+    <a class="phone" href="tel:+73422982959">+7 (342) 298-29-59</a>
+  </div>
+</nav>
+<main class="page">
+  <div class="wrap">
+    <p class="kicker">Открытый проект</p>
+    <h1>Книга памяти</h1>
+    <p>Дорогие друзья и гости нашего сайта! Пермский военно-мемориальный комплекс запускает открытый проект «Книга памяти — человек жив, пока жива память о нём».</p>
+    <p>Если раньше наша организация помогала сохранить память о близких в камне, то с вашей помощью мы делаем это и на сайте. Любой человек индивидуален: его биография, привычки, достоинства. В проекте «Книга памяти» мы возрождаем неповторимые жизни и судьбы людей.</p>
+    <p>Если вы хотите поделиться памятью о близких и рассказать об их жизни, напишите нам. Мы создаём страницы Книги памяти, ориентируясь на нашу информационную базу.</p>
+    <p>Для удобства книга разделена на главы-категории и алфавитный указатель фамилий.</p>
+    <a class="btn" href="../#contacts">Написать в книгу</a>
+  </div>
+</main>
+<footer>
+  <div class="wrap"><a href="../">На главную</a></div>
+</footer>
+</body>
+</html>
