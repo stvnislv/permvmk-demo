@@ -8,7 +8,7 @@
 <title>Работы — ПВМК</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Ruslan+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -22,13 +22,13 @@
   --muted: #c4bdb2;
   --line: rgba(243, 238, 230, .14);
   --header: 72px;
-  --serif: "Ruslan Display", Georgia, serif;
+  --serif: "Cormorant Garamond", Georgia, serif;
   --sans: Manrope, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 1.05rem; line-height: 1.65; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 1.05rem; font-weight: 300; line-height: 1.65; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
@@ -36,20 +36,25 @@ button { font: inherit; color: inherit; }
 .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
 nav { position: sticky; top: 0; z-index: 20; background: rgba(12, 11, 10, .94); border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
 .nav-inner { min-height: var(--header); display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-.logo { font-family: var(--serif); font-size: 1.85rem; font-weight: 400; letter-spacing: .02em; text-decoration: none; color: var(--brass-2); }
+.logo { font-family: var(--serif); font-size: 1.7rem; font-weight: 400; letter-spacing: .04em; text-decoration: none; color: var(--brass-2); }
 .nav-links { display: flex; gap: 22px; list-style: none; padding: 0; }
 .nav-links a { text-decoration: none; color: var(--muted); font-size: .92rem; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); }
-.phone { color: var(--text); text-decoration: none; font-weight: 700; white-space: nowrap; }
+.phone { color: var(--text); text-decoration: none; font-weight: 400; white-space: nowrap; }
 .burger { display: none; width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); font-size: 1.4rem; }
 header.page { padding: 48px 0 10px; }
-h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 5vw, 4.2rem); line-height: 1.12; letter-spacing: .01em; margin: 10px 0 12px; }
+.logo, h1 {
+  display: inline-block;
+  transform: scaleX(.92) scaleY(1.18);
+  transform-origin: left center;
+}
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -.03em; margin: 10px 0 12px; }
 .lead { color: var(--muted); max-width: 38rem; }
 .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 36px 0 72px; }
 .shot { margin: 0; background: var(--bg-2); border-radius: 16px; overflow: hidden; border: 1px solid var(--line); }
 .shot img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; }
 .shot figcaption { padding: 12px 14px 14px; color: var(--muted); font-size: .88rem; }
-.shot strong { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
+.shot strong { display: block; color: var(--text); font-weight: 400; margin-bottom: 2px; }
 footer { border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--muted); font-size: .88rem; }
 footer a { color: var(--text); }
 @media (max-width: 900px) {
@@ -79,7 +84,7 @@ footer a { color: var(--text); }
 <main>
   <header class="page">
     <div class="wrap pop">
-      <p style="color:#c6a15a;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Каталог</p>
+      <p style="color:#c6a15a;font-size:.78rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase">Каталог</p>
       <h1>Работы</h1>
       <p class="lead">Примеры памятников из каталога ПВМК. Подписи — порода камня и тип стелы, как на сайте компании.</p>
     </div>
