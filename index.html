@@ -280,7 +280,7 @@ footer a { color: var(--text); }
   if (!row) return;
   var cards = Array.prototype.slice.call(row.querySelectorAll('.service-card'));
   var frame = 0;
-  var locked = null;
+  var hovered = null;
   function centerOf(card) {
     return card.offsetLeft + card.offsetWidth / 2;
   }
@@ -303,53 +303,30 @@ footer a { color: var(--text); }
     return chosen;
   }
   function pick() {
-    if (locked) {
-      apply(locked);
-      if (Math.abs(centerOf(locked) - (row.scrollLeft + row.clientWidth / 2)) < 12) locked = null;
-      return;
-    }
-    apply(nearest());
+    apply(hovered || nearest());
   }
   function schedule() {
     if (frame) return;
     frame = requestAnimationFrame(function () { frame = 0; pick(); });
   }
-  var targetLeft = null;
-  function pick() {
-    if (locked) {
-      apply(locked);
-      var mid = row.scrollLeft + row.clientWidth / 2;
-      var arrived = Math.abs(centerOf(locked) - mid) < 14;
-      var settled = targetLeft === null || Math.abs(row.scrollLeft - targetLeft) < 3;
-      if (arrived && settled) {
-        locked = null;
-        targetLeft = null;
-      }
-      return;
-    }
-    apply(nearest());
-  }
   cards.forEach(function (card) {
-    card.addEventListener('click', function (event) {
-      if (card.classList.contains('is-selected')) return;
-      event.preventDefault();
-      var desired = centerOf(card) - row.clientWidth / 2;
-      var max = Math.max(0, row.scrollWidth - row.clientWidth);
-      targetLeft = Math.max(0, Math.min(max, desired));
-      locked = card;
+    card.addEventListener('mouseenter', function () {
+      hovered = card;
       apply(card);
-      row.scrollTo({
-        left: targetLeft,
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-      });
+    });
+    card.addEventListener('focus', function () {
+      hovered = card;
+      apply(card);
     });
   });
-  row.addEventListener('pointerdown', function () { locked = null; targetLeft = null; });
+  row.addEventListener('mouseleave', function () {
+    hovered = null;
+    apply(nearest());
+  });
   row.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule);
   row.addEventListener('wheel', function (event) {
     if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-    locked = null;
     event.preventDefault();
     row.scrollBy({ left: event.deltaY, behavior: 'auto' });
   }, { passive: false });
