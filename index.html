@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="ООО «Пермский военно-мемориальный комплекс». Проектирование, изготовление и установка памятников из камня. Круглосуточный телефон: 298-29-59.">
+<meta name="description" content="ООО «Пермский военно-мемориальный комплекс». Ритуальные услуги, памятники из гранита и мрамора, мемориалы и благоустройство. Телефон: 298-29-59.">
 <meta name="theme-color" content="#0c0b0a">
 <title>ПВМК — Пермский военно-мемориальный комплекс</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 :root {
   --bg: #0c0b0a;
@@ -25,241 +27,203 @@
 }
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 84px; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 1.05rem;
-  line-height: 1.65;
-}
-img { display: block; max-width: 100%; height: auto; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 1.05rem; line-height: 1.65; }
 a { color: inherit; }
 button, input, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--brass-2); outline-offset: 3px; }
 .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(12, 11, 10, .92);
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(14px);
-}
-.nav-inner { min-height: var(--header); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+nav { position: sticky; top: 0; z-index: 20; background: rgba(12, 11, 10, .94); border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
+.nav-inner { min-height: var(--header); display: flex; align-items: center; justify-content: space-between; gap: 18px; }
 .logo { font-family: var(--serif); font-size: 1.7rem; letter-spacing: .06em; text-decoration: none; color: var(--brass-2); }
 .nav-links { display: flex; gap: 22px; list-style: none; padding: 0; }
 .nav-links a { text-decoration: none; color: var(--muted); font-size: .92rem; }
-.nav-links a:hover { color: var(--text); }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); }
 .phone { color: var(--text); text-decoration: none; font-weight: 700; white-space: nowrap; }
 .phone:hover { color: var(--brass-2); }
-.hero { padding: 48px 0 28px; }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(280px, .8fr); gap: 48px; align-items: center; }
+.burger { display: none; width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); font-size: 1.4rem; }
+.hero { padding: 56px 0 12px; }
 .kicker { color: var(--brass); font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
 h1, h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -.02em; text-wrap: balance; }
-h1 { font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: 1.02; margin-bottom: 18px; }
-.lead { color: var(--muted); max-width: 38rem; margin-bottom: 28px; }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; text-decoration: none; font-weight: 700; border: 1px solid transparent; }
+h1 { font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: 1.02; max-width: 16ch; margin-bottom: 18px; }
+.lead { color: var(--muted); max-width: 40rem; margin-bottom: 26px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; text-decoration: none; font-weight: 700; border: 1px solid transparent; cursor: pointer; }
 .btn-primary { background: var(--brass); color: var(--ink); }
 .btn-primary:hover { background: var(--brass-2); }
 .btn-ghost { border-color: var(--line); }
 .btn-ghost:hover { border-color: var(--brass); color: var(--brass-2); }
 .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: .92rem; }
 .facts strong { color: var(--text); font-weight: 600; }
-.hero-photo { margin: 0; }
-.hero-photo img { width: 100%; max-height: 720px; object-fit: cover; object-position: center top; border-radius: 18px; }
-.hero-photo figcaption { margin-top: 10px; color: var(--muted); font-size: .86rem; }
-section { padding: 72px 0; }
-.section-head { max-width: 40rem; margin-bottom: 28px; }
-h2 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.08; }
-.section-head p { color: var(--muted); margin-top: 12px; }
-.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.shot { margin: 0; background: var(--bg-2); border-radius: 16px; overflow: hidden; border: 1px solid var(--line); }
-.shot img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; }
-.shot figcaption { padding: 12px 14px 14px; color: var(--muted); font-size: .88rem; }
-.shot strong { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
+section { padding: 64px 0; }
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 22px; }
+h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.05; }
+.section-head p, .note { color: var(--muted); }
+.spectrum-wrap { position: relative; }
+.spectrum-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 14px; width: 48px;
+  background: linear-gradient(90deg, transparent, var(--bg));
+  pointer-events: none;
+}
+.spectrum {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 4px 4px 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(198, 161, 90, .45) transparent;
+}
+.service-card {
+  flex: 0 0 210px;
+  scroll-snap-align: start;
+  min-height: 148px;
+  padding: 18px 16px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color .25s ease, transform .25s ease;
+}
+.service-card:hover { border-color: rgba(198, 161, 90, .55); transform: translateY(-3px); }
+.service-card em { font-style: normal; color: var(--brass); font-size: .75rem; font-weight: 700; letter-spacing: .08em; }
+.service-card strong { display: block; margin: 10px 0 6px; font-size: 1.12rem; line-height: 1.25; }
+.service-card span { color: var(--muted); font-size: .88rem; line-height: 1.45; }
 .prose { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 48px; }
 .prose p { color: var(--muted); }
 .prose p + p { margin-top: 14px; }
-.services { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.service { padding: 22px 22px 20px; border-top: 1px solid var(--line); }
-.service h3 { font-size: 1.15rem; margin-bottom: 8px; }
-.service p { color: var(--muted); }
-.shapes { margin-top: 22px; color: var(--muted); }
-.shapes span { color: var(--text); }
 .offices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .office, .form-card { padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); }
-.office h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.office h3, .form-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
 .office p, .office a { color: var(--muted); text-decoration: none; }
 .office a:hover { color: var(--brass-2); }
-.contacts { display: grid; grid-template-columns: .9fr 1.1fr; gap: 18px; }
+.contacts { display: grid; grid-template-columns: .9fr 1.1fr; gap: 18px; margin-top: 18px; }
 .form { display: flex; flex-direction: column; gap: 12px; }
 .form label { display: flex; flex-direction: column; gap: 6px; font-size: .86rem; font-weight: 600; }
 .form input, .form textarea { background: #0c0b0a; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 1rem; }
 .form textarea { min-height: 110px; resize: vertical; }
-.form .btn { border: 0; cursor: pointer; }
 .status { padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(198, 161, 90, .45); color: var(--brass-2); }
 footer { border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--muted); font-size: .88rem; }
 .footer-row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 footer a { color: var(--text); }
-.burger { display: none; width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); }
 @media (max-width: 900px) {
-  .hero-grid, .prose, .services, .contacts, .offices, .gallery { grid-template-columns: 1fr; }
-  .gallery { grid-template-columns: 1fr 1fr; }
+  .prose, .contacts, .offices { grid-template-columns: 1fr; }
   .nav-links { display: none; }
   .burger { display: grid; place-items: center; }
   .nav-links.open { display: flex; flex-direction: column; position: absolute; left: 0; right: 0; top: 100%; padding: 12px 20px 18px; background: #0c0b0a; border-bottom: 1px solid var(--line); }
+  .section-head { flex-direction: column; align-items: flex-start; }
 }
-@media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } .actions { flex-direction: column; } .actions .btn { width: 100%; } }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (max-width: 560px) { .actions { flex-direction: column; } .actions .btn { width: 100%; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .spectrum { scroll-behavior: auto; }
+  .service-card { transition: none; }
+}
 </style>
 </head>
 <body>
 <nav>
   <div class="wrap nav-inner">
-    <a class="logo" href="#top">ПВМК</a>
+    <a class="logo" href="/">ПВМК</a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#works">Работы</a></li>
-      <li><a href="#about">О комплексе</a></li>
       <li><a href="#services">Услуги</a></li>
+      <li><a href="works/">Работы</a></li>
+      <li><a href="#about">О комплексе</a></li>
       <li><a href="#contacts">Контакты</a></li>
     </ul>
     <a class="phone" href="tel:+73422982959">+7 (342) 298-29-59</a>
     <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">☰</button>
   </div>
 </nav>
-<main id="top">
+<main>
   <header class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="kicker">ООО «Пермский военно-мемориальный комплекс»</p>
-        <h1>Проектирование, изготовление и установка памятников из камня</h1>
-        <p class="lead">Полный комплекс услуг и широкий ассортимент ритуальной продукции. Изготовление, установка и реставрация мемориалов и мемориальных досок.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#contacts">Оставить заявку</a>
-          <a class="btn btn-ghost" href="tel:+73422982959">Круглосуточный телефон</a>
-        </div>
-        <p class="facts"><strong>ш. Космонавтов, 403</strong><span>производство и офис</span><span>пн–пт, 9:00–18:00</span></p>
+    <div class="wrap">
+      <p class="kicker pop">ООО «Пермский военно-мемориальный комплекс»</p>
+      <h1 class="pop">Полный комплекс услуг</h1>
+      <p class="lead pop">Ритуальная продукция, проектирование и установка памятников из камня, мемориалы и благоустройство мест захоронения.</p>
+      <div class="actions pop">
+        <a class="btn btn-primary" href="#contacts">Оставить заявку</a>
+        <a class="btn btn-ghost" href="tel:+73422982959">Круглосуточный телефон</a>
       </div>
-      <figure class="hero-photo">
-        <img src="images/work-hero.jpg" alt="Памятник из чёрного гранита: художественный портрет и стела прямая" width="502" height="636">
-        <figcaption>Гранит чёрный. Портрет художественный. Каталог работ ПВМК.</figcaption>
-      </figure>
+      <p class="facts pop"><strong>ш. Космонавтов, 403</strong><span>производство и офис</span><span>пн–пт, 9:00–18:00</span></p>
     </div>
   </header>
-  <section id="works">
+  <section id="services">
     <div class="wrap">
-      <div class="section-head">
-        <h2>Работы из каталога</h2>
-        <p>Памятники из гранита разных пород. Портрет, надпись и символика выполняются по заказу.</p>
+      <div class="section-head pop">
+        <h2>Спектр услуг</h2>
+        <p class="note">Листайте ряд. Фотографии работ лежат отдельно, в <a href="works/">каталоге</a>.</p>
       </div>
-      <div class="gallery">
-        <figure class="shot">
-          <img src="images/work-red.jpg" alt="Памятник из красно-коричневого гранита, стела прямая" width="502" height="643">
-          <figcaption><strong>Гранит красно-коричневый</strong>Стела «Прямая»</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="images/work-gray.jpg" alt="Памятник из серого гранита, стела прямая" width="502" height="639">
-          <figcaption><strong>Гранит серый</strong>Стела «Прямая»</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="images/work-brown.jpg" alt="Памятник из коричневого гранита, стела прямая" width="502" height="632">
-          <figcaption><strong>Гранит коричневый</strong>Стела «Прямая»</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="images/work-portrait.jpg" alt="Памятник из чёрного гранита с художественным портретом" width="502" height="630">
-          <figcaption><strong>Гранит чёрный</strong>Портрет художественный</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="images/work-jet.jpg" alt="Памятник из чёрного гранита, портрет с фоном" width="502" height="630">
-          <figcaption><strong>Гранит чёрный</strong>Стела прямая, портрет с фоном</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="images/work-military.jpg" alt="Памятник из чёрного гранита, стела прямая" width="502" height="636">
-          <figcaption><strong>Гранит чёрный</strong>Стела прямая</figcaption>
-        </figure>
+      <div class="spectrum-wrap">
+        <div class="spectrum" tabindex="0" aria-label="Спектр услуг">
+          <a class="service-card" href="#about"><em>01</em><strong>Ритуальные услуги</strong><span>Полный комплекс и ассортимент ритуальной продукции</span></a>
+          <a class="service-card" href="works/"><em>02</em><strong>Гранитные</strong><span>Памятники из гранита разных пород</span></a>
+          <a class="service-card" href="works/"><em>03</em><strong>Мраморные</strong><span>Памятники из мрамора</span></a>
+          <a class="service-card" href="works/"><em>04</em><strong>Семейные</strong><span>Общий памятник, если могилы рядом</span></a>
+          <a class="service-card" href="works/"><em>05</em><strong>Комплексы</strong><span>Мемориалы и комплексы под ключ</span></a>
+          <a class="service-card" href="#about"><em>06</em><strong>Конфессиональные</strong><span>С учётом религиозных традиций семьи</span></a>
+          <a class="service-card" href="#about"><em>07</em><strong>Льготные</strong><span>Для льготных категорий, за счёт государства</span></a>
+          <a class="service-card" href="#about"><em>08</em><strong>Реставрация</strong><span>Памятники и мемориальные доски</span></a>
+          <a class="service-card" href="#about"><em>09</em><strong>Оградки</strong><span>Ограждение места захоронения</span></a>
+          <a class="service-card" href="#about"><em>10</em><strong>Столы и лавки</strong><span>Каменные столы и скамьи</span></a>
+          <a class="service-card" href="#about"><em>11</em><strong>Вазы</strong><span>Вазы и аксессуары из камня или бронзы</span></a>
+          <a class="service-card" href="#about"><em>12</em><strong>Благоустройство</strong><span>Плитка, облицовка, уход, хранение и установка</span></a>
+        </div>
       </div>
     </div>
   </section>
   <section id="about">
     <div class="wrap">
-      <div class="section-head">
-        <h2>О комплексе</h2>
-      </div>
+      <div class="section-head pop"><h2>О комплексе</h2></div>
       <div class="prose">
-        <div>
+        <div class="pop">
           <p>ООО «Пермский военно-мемориальный комплекс» с начала своего основания занимается изготовлением памятников и мемориалов, реставрацией и работами по содержанию и благоустройству мест захоронения.</p>
-          <p>За это время накоплен опыт в этой области, внедрены современные методы работы, технологии и техника. Граверы и специалисты по обработке камня проходят повышение квалификации и следят за новыми направлениями.</p>
+          <p>Граверы и специалисты по обработке камня проходят повышение квалификации. Заказать памятник можно в любое время по круглосуточному телефону.</p>
         </div>
-        <div>
-          <p>Мы изготовим памятники из гранита и мрамора, нанесём портреты любого размера и формы, спроектируем и выполним под ключ мемориалы, мемориальные комплексы и малые архитектурные формы.</p>
-          <p>К каждому заказу подходим индивидуально и без шаблонов. При сложном заказе разрабатывается несколько вариантов 3D-моделей, затем выполняются граверные работы. Скульпторы изготовят бюст, статую или барельеф и помогут подобрать аксессуары из камня или бронзы.</p>
+        <div class="pop">
+          <p>Изготавливаем памятники из гранита и мрамора, наносим портреты, проектируем мемориалы и малые архитектурные формы. К каждому заказу подходим индивидуально и без шаблонов.</p>
+          <p>При сложном заказе готовим несколько вариантов 3D-моделей, затем выполняем граверные работы. Скульпторы делают бюст, статую или барельеф.</p>
         </div>
       </div>
-    </div>
-  </section>
-  <section id="services">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Услуги</h2>
-        <p>Заказать изготовление памятников можно в любое время по круглосуточному телефону +7 (342) 298-29-59.</p>
-      </div>
-      <div class="services">
-        <article class="service">
-          <h3>Ритуальные услуги</h3>
-          <p>Полный комплекс услуг и широкий ассортимент ритуальной продукции.</p>
-        </article>
-        <article class="service">
-          <h3>Памятники</h3>
-          <p>Проектирование, изготовление и установка памятников из гранита и мрамора различных пород.</p>
-        </article>
-        <article class="service">
-          <h3>Мемориалы и реставрация</h3>
-          <p>Изготовление, установка и реставрация мемориалов и мемориальных досок.</p>
-        </article>
-        <article class="service">
-          <h3>Благоустройство</h3>
-          <p>Содержание и благоустройство мест захоронения, сезонное хранение, доставка и установка.</p>
-        </article>
-      </div>
-      <p class="shapes">Формы гранитных памятников: <span>классический, со скосом, волна, купол, с крестом, фигурный, дерево, детские.</span></p>
     </div>
   </section>
   <section id="contacts">
     <div class="wrap">
-      <div class="section-head">
-        <h2>Адреса и телефон</h2>
-        <p>На шоссе Космонавтов, 403 можно посмотреть изготовление, выбрать камень на складе и принять готовую стелу.</p>
-      </div>
+      <div class="section-head pop"><h2>Адреса и телефон</h2></div>
       <div class="offices">
-        <article class="office">
+        <article class="office pop">
           <h3>ш. Космонавтов, 403</h3>
           <p>Производство и офис. Пн–пт, 9:00–18:00. Суббота и воскресенье — выходной.</p>
           <p><a href="tel:+73422982959">+7 (342) 298-29-59</a>, круглосуточно</p>
           <p><a href="tel:+73422946052">+7 (342) 294-60-52</a></p>
         </article>
-        <article class="office">
+        <article class="office pop">
           <h3>ул. Героев Хасана, 7</h3>
           <p>Офис в Свердловском районе.</p>
         </article>
-        <article class="office">
+        <article class="office pop">
           <h3>ул. Маршала Рыбалко, 109</h3>
           <p>Офис в Кировском районе.</p>
         </article>
       </div>
-      <div class="contacts" style="margin-top:18px">
-        <article class="office">
-          <h3>Как добраться</h3>
+      <div class="contacts">
+        <article class="office pop">
+          <h3>Как добраться до производства</h3>
           <p>Автобусы № 42, 98, 22т до остановки «Олимпиец», следующей после Верхних Муллов, либо пригородные автобусы в сторону Большого Савино.</p>
-          <p style="margin-top:10px"><a href="http://permvmk.ru/" target="_blank" rel="noopener noreferrer">permvmk.ru</a></p>
+          <p style="margin-top:10px"><a href="http://permvmk.ru/">permvmk.ru</a></p>
         </article>
-        <form class="form-card form" id="contactForm">
+        <form class="form-card form pop" id="contactForm">
           <h3>Оставить заявку</h3>
           <p class="status" id="formStatus" role="status" tabindex="-1" hidden>Заявка отправлена. Мы свяжемся с вами.</p>
           <label>Ваше имя<input name="name" autocomplete="name" required></label>
           <label>Телефон<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
-          <label>Какой памятник или услуга вас интересует?<textarea name="message"></textarea></label>
+          <label>Какая услуга вас интересует?<textarea name="message"></textarea></label>
           <button class="btn btn-primary" type="submit">Отправить</button>
         </form>
       </div>
@@ -273,20 +237,50 @@ footer a { color: var(--text); }
   </div>
 </footer>
 <script>
-document.getElementById('burger').addEventListener('click', function () {
-  var open = document.getElementById('navLinks').classList.toggle('open');
-  this.setAttribute('aria-expanded', open ? 'true' : 'false');
-  this.setAttribute('aria-label', open ? 'Закрыть меню' : 'Меню');
-  this.textContent = open ? '×' : '☰';
-});
-document.getElementById('contactForm').addEventListener('submit', function (event) {
-  event.preventDefault();
-  if (!this.checkValidity()) { this.reportValidity(); return; }
-  this.reset();
-  var status = document.getElementById('formStatus');
-  status.hidden = false;
-  status.focus();
-});
+(function () {
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('navLinks');
+  burger.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Меню');
+    burger.textContent = open ? '×' : '☰';
+  });
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { links.classList.remove('open'); burger.textContent = '☰'; });
+  });
+  var form = document.getElementById('contactForm');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    form.reset();
+    var status = document.getElementById('formStatus');
+    status.hidden = false;
+    status.focus();
+  });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.pop').forEach(function (el) {
+    gsap.from(el, {
+      y: 46,
+      scale: 0.92,
+      opacity: 0,
+      duration: 0.85,
+      ease: 'back.out(1.6)',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+    });
+  });
+  gsap.from('.service-card', {
+    y: 36,
+    scale: 0.86,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.05,
+    ease: 'back.out(1.8)',
+    scrollTrigger: { trigger: '.spectrum', start: 'top 88%', once: true }
+  });
+})();
 </script>
 </body>
 </html>
