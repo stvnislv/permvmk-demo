@@ -63,10 +63,11 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.05; }
   --card: 200px;
   display: flex;
   gap: 22px;
+  width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding: 34px calc(50% - var(--card) / 2) 40px;
+  padding: 34px calc(50vw - var(--card) / 2) 40px 0;
   scrollbar-width: none;
 }
 .spectrum::-webkit-scrollbar { display: none; }
@@ -90,10 +91,12 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.05; }
 }
 .service-card.is-selected {
   transform: scale(1.22);
+  transform-origin: center center;
   z-index: 2;
   border-color: rgba(198, 161, 90, .75);
   background: linear-gradient(180deg, rgba(198, 161, 90, .16), rgba(255,255,255,.04));
 }
+.service-card:first-child.is-selected { transform-origin: left center; }
 .service-card em { font-style: normal; color: var(--brass); font-size: .75rem; font-weight: 700; letter-spacing: .08em; }
 .service-card strong { display: block; margin: 10px 0 6px; font-size: 1.12rem; line-height: 1.25; }
 .service-card span { color: var(--muted); font-size: .88rem; line-height: 1.45; }
@@ -162,7 +165,8 @@ footer a { color: var(--text); }
         <h2>Спектр услуг</h2>
         <p class="note">Фотографии работ лежат отдельно, в <a href="works/">каталоге</a>.</p>
       </div>
-      <div class="spectrum" id="spectrum" tabindex="0" aria-label="Спектр услуг">
+    </div>
+    <div class="spectrum" id="spectrum" tabindex="0" aria-label="Спектр услуг">
           <a class="service-card" href="#about"><em>01</em><strong>Ритуальные услуги</strong><span>Полный комплекс и ассортимент ритуальной продукции</span></a>
           <a class="service-card" href="works/"><em>02</em><strong>Гранитные</strong><span>Памятники из гранита разных пород</span></a>
           <a class="service-card" href="works/"><em>03</em><strong>Мраморные</strong><span>Памятники из мрамора</span></a>
@@ -175,7 +179,6 @@ footer a { color: var(--text); }
           <a class="service-card" href="#about"><em>10</em><strong>Столы и лавки</strong><span>Каменные столы и скамьи</span></a>
           <a class="service-card" href="#about"><em>11</em><strong>Вазы</strong><span>Вазы и аксессуары из камня или бронзы</span></a>
           <a class="service-card" href="#about"><em>12</em><strong>Благоустройство</strong><span>Плитка, облицовка, уход, хранение и установка</span></a>
-        </div>
     </div>
   </section>
   <section id="about">
@@ -277,15 +280,11 @@ footer a { color: var(--text); }
   if (!row) return;
   var cards = Array.prototype.slice.call(row.querySelectorAll('.service-card'));
   var frame = 0;
-  function pick() {
-    var mid = row.scrollLeft + row.clientWidth / 2;
-    var chosen = cards[0];
-    var best = Infinity;
-    cards.forEach(function (card) {
-      var center = card.offsetLeft + card.offsetWidth / 2;
-      var distance = Math.abs(center - mid);
-      if (distance < best) { best = distance; chosen = card; }
-    });
+  var locked = null;
+  function centerOf(card) {
+    return card.offsetLeft + card.offsetWidth / 2;
+  }
+  function apply(chosen) {
     cards.forEach(function (card) {
       var on = card === chosen;
       card.classList.toggle('is-selected', on);
@@ -293,14 +292,64 @@ footer a { color: var(--text); }
       else card.removeAttribute('aria-current');
     });
   }
+  function nearest() {
+    var mid = row.scrollLeft + row.clientWidth / 2;
+    var chosen = cards[0];
+    var best = Infinity;
+    cards.forEach(function (card) {
+      var distance = Math.abs(centerOf(card) - mid);
+      if (distance < best) { best = distance; chosen = card; }
+    });
+    return chosen;
+  }
+  function pick() {
+    if (locked) {
+      apply(locked);
+      if (Math.abs(centerOf(locked) - (row.scrollLeft + row.clientWidth / 2)) < 12) locked = null;
+      return;
+    }
+    apply(nearest());
+  }
   function schedule() {
     if (frame) return;
     frame = requestAnimationFrame(function () { frame = 0; pick(); });
   }
+  var targetLeft = null;
+  function pick() {
+    if (locked) {
+      apply(locked);
+      var mid = row.scrollLeft + row.clientWidth / 2;
+      var arrived = Math.abs(centerOf(locked) - mid) < 14;
+      var settled = targetLeft === null || Math.abs(row.scrollLeft - targetLeft) < 3;
+      if (arrived && settled) {
+        locked = null;
+        targetLeft = null;
+      }
+      return;
+    }
+    apply(nearest());
+  }
+  cards.forEach(function (card) {
+    card.addEventListener('click', function (event) {
+      if (card.classList.contains('is-selected')) return;
+      event.preventDefault();
+      var desired = centerOf(card) - row.clientWidth / 2;
+      var max = Math.max(0, row.scrollWidth - row.clientWidth);
+      targetLeft = Math.max(0, Math.min(max, desired));
+      locked = card;
+      apply(card);
+      row.scrollTo({
+        left: targetLeft,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
+    });
+  });
+  row.addEventListener('pointerdown', function () { locked = null; targetLeft = null; });
   row.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule);
   row.addEventListener('wheel', function (event) {
     if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+    locked = null;
     event.preventDefault();
     row.scrollBy({ left: event.deltaY, behavior: 'auto' });
   }, { passive: false });
