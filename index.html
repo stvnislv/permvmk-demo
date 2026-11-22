@@ -59,27 +59,20 @@ section { padding: 64px 0; }
 .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 22px; }
 h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.05; }
 .section-head p, .note { color: var(--muted); }
-.spectrum-wrap { position: relative; }
-.spectrum-wrap::after {
-  content: "";
-  position: absolute;
-  top: 0; right: 0; bottom: 14px; width: 48px;
-  background: linear-gradient(90deg, transparent, var(--bg));
-  pointer-events: none;
-}
 .spectrum {
+  --card: 200px;
   display: flex;
-  gap: 12px;
+  gap: 22px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding: 4px 4px 16px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(198, 161, 90, .45) transparent;
+  padding: 34px calc(50% - var(--card) / 2) 40px;
+  scrollbar-width: none;
 }
+.spectrum::-webkit-scrollbar { display: none; }
 .service-card {
-  flex: 0 0 210px;
-  scroll-snap-align: start;
+  flex: 0 0 var(--card);
+  scroll-snap-align: center;
   min-height: 148px;
   padding: 18px 16px 16px;
   border-radius: 18px;
@@ -89,9 +82,18 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.05; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: border-color .25s ease, transform .25s ease;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform .42s cubic-bezier(.22, .8, .28, 1), border-color .42s ease, background .42s ease;
+  position: relative;
+  z-index: 1;
 }
-.service-card:hover { border-color: rgba(198, 161, 90, .55); transform: translateY(-3px); }
+.service-card.is-selected {
+  transform: scale(1.22);
+  z-index: 2;
+  border-color: rgba(198, 161, 90, .75);
+  background: linear-gradient(180deg, rgba(198, 161, 90, .16), rgba(255,255,255,.04));
+}
 .service-card em { font-style: normal; color: var(--brass); font-size: .75rem; font-weight: 700; letter-spacing: .08em; }
 .service-card strong { display: block; margin: 10px 0 6px; font-size: 1.12rem; line-height: 1.25; }
 .service-card span { color: var(--muted); font-size: .88rem; line-height: 1.45; }
@@ -158,10 +160,9 @@ footer a { color: var(--text); }
     <div class="wrap">
       <div class="section-head pop">
         <h2>Спектр услуг</h2>
-        <p class="note">Листайте ряд. Фотографии работ лежат отдельно, в <a href="works/">каталоге</a>.</p>
+        <p class="note">Фотографии работ лежат отдельно, в <a href="works/">каталоге</a>.</p>
       </div>
-      <div class="spectrum-wrap">
-        <div class="spectrum" tabindex="0" aria-label="Спектр услуг">
+      <div class="spectrum" id="spectrum" tabindex="0" aria-label="Спектр услуг">
           <a class="service-card" href="#about"><em>01</em><strong>Ритуальные услуги</strong><span>Полный комплекс и ассортимент ритуальной продукции</span></a>
           <a class="service-card" href="works/"><em>02</em><strong>Гранитные</strong><span>Памятники из гранита разных пород</span></a>
           <a class="service-card" href="works/"><em>03</em><strong>Мраморные</strong><span>Памятники из мрамора</span></a>
@@ -175,7 +176,6 @@ footer a { color: var(--text); }
           <a class="service-card" href="#about"><em>11</em><strong>Вазы</strong><span>Вазы и аксессуары из камня или бронзы</span></a>
           <a class="service-card" href="#about"><em>12</em><strong>Благоустройство</strong><span>Плитка, облицовка, уход, хранение и установка</span></a>
         </div>
-      </div>
     </div>
   </section>
   <section id="about">
@@ -271,15 +271,40 @@ footer a { color: var(--text); }
       scrollTrigger: { trigger: el, start: 'top 90%', once: true }
     });
   });
-  gsap.from('.service-card', {
-    y: 36,
-    scale: 0.86,
-    opacity: 0,
-    duration: 0.7,
-    stagger: 0.05,
-    ease: 'back.out(1.8)',
-    scrollTrigger: { trigger: '.spectrum', start: 'top 88%', once: true }
-  });
+})();
+(function () {
+  var row = document.getElementById('spectrum');
+  if (!row) return;
+  var cards = Array.prototype.slice.call(row.querySelectorAll('.service-card'));
+  var frame = 0;
+  function pick() {
+    var mid = row.scrollLeft + row.clientWidth / 2;
+    var chosen = cards[0];
+    var best = Infinity;
+    cards.forEach(function (card) {
+      var center = card.offsetLeft + card.offsetWidth / 2;
+      var distance = Math.abs(center - mid);
+      if (distance < best) { best = distance; chosen = card; }
+    });
+    cards.forEach(function (card) {
+      var on = card === chosen;
+      card.classList.toggle('is-selected', on);
+      if (on) card.setAttribute('aria-current', 'true');
+      else card.removeAttribute('aria-current');
+    });
+  }
+  function schedule() {
+    if (frame) return;
+    frame = requestAnimationFrame(function () { frame = 0; pick(); });
+  }
+  row.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  row.addEventListener('wheel', function (event) {
+    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+    event.preventDefault();
+    row.scrollBy({ left: event.deltaY, behavior: 'auto' });
+  }, { passive: false });
+  pick();
 })();
 </script>
 </body>
