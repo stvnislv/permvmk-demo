@@ -2,203 +2,349 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ООО «Пермский военно-мемориальный комплекс». Ритуальные услуги, памятники из гранита и мрамора, мемориалы и благоустройство. Телефон: 298-29-59.">
+<meta name="theme-color" content="#0c0b0a">
 <title>ПВМК — Пермский военно-мемориальный комплекс</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="a11y.css">
+<script src="a11y.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
-:root{--bg:#0a0a0f;--bg2:#12121a;--gold:#c9a227;--gold-soft:#e8d48b;--text:#e8e6e1;--muted:#8a8794;--glass:rgba(255,255,255,.04);--glass-border:rgba(255,255,255,.08);--radius:20px}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;overflow-x:hidden;line-height:1.6}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(201,162,39,.12),transparent),radial-gradient(ellipse 60% 40% at 80% 110%,rgba(201,162,39,.08),transparent);pointer-events:none;z-index:0}
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:background .4s,backdrop-filter .4s}
-nav.scrolled{background:rgba(10,10,15,.75);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--gold);letter-spacing:.5px}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .3s}
-.nav-links a:hover{color:var(--text)}
-.nav-cta{background:var(--gold);color:var(--bg)!important;padding:10px 22px;border-radius:50px;font-weight:600}
-.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.burger span{width:26px;height:2px;background:var(--text);transition:.3s}
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative}
-.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);border-radius:50px;padding:8px 18px;font-size:.8rem;color:var(--gold-soft);margin-bottom:24px;opacity:0;transform:translateY(20px)}
-.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4.2rem);font-weight:700;line-height:1.15;margin-bottom:24px;opacity:0;transform:translateY(30px)}
-.hero h1 em{font-style:normal;color:var(--gold)}
-.hero p{font-size:1.1rem;color:var(--muted);max-width:480px;margin-bottom:36px;opacity:0;transform:translateY(30px)}
-.hero-actions{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transform:translateY(30px)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .3s;cursor:pointer;border:none}
-.btn-primary{background:var(--gold);color:var(--bg)}
-.btn-primary:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,162,39,.3)}
-.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--glass-border)}
-.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
-.hero-visual{position:relative;opacity:0;transform:scale(.9)}
-.hero-orb{width:100%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(201,162,39,.25),transparent 60%),radial-gradient(circle at 70% 70%,rgba(100,100,140,.15),transparent 60%);border:1px solid var(--glass-border);position:relative;overflow:hidden}
-.hero-orb::after{content:'';position:absolute;inset:-30%;background:conic-gradient(from 0deg,transparent,rgba(201,162,39,.15),transparent 30%);animation:spin 12s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.hero-orb-inner{position:absolute;inset:15%;border-radius:50%;background:var(--bg2);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
-.hero-orb-inner .num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:var(--gold)}
-.hero-orb-inner .lbl{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
-section{padding:100px 0}
-.section-head{text-align:center;margin-bottom:60px}
-.section-head .eyebrow{color:var(--gold);font-size:.8rem;text-transform:uppercase;letter-spacing:3px;margin-bottom:12px;opacity:0;transform:translateY(20px)}
-.section-head h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;opacity:0;transform:translateY(20px)}
-.section-head p{color:var(--muted);max-width:560px;margin:16px auto 0;opacity:0;transform:translateY(20px)}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.service-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px 28px;transition:all .4s;opacity:0;transform:translateY(40px)}
-.service-card:hover{border-color:rgba(201,162,39,.3);transform:translateY(-6px);background:rgba(255,255,255,.06)}
-.service-card .icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(201,162,39,.2),rgba(201,162,39,.05));display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
-.service-card h3{font-size:1.15rem;font-weight:600;margin-bottom:10px}
-.service-card p{color:var(--muted);font-size:.9rem}
-.stats{background:var(--bg2);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;text-align:center}
-.stat-item{opacity:0;transform:translateY(30px)}
-.stat-item .value{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--gold);line-height:1}
-.stat-item .label{color:var(--muted);font-size:.85rem;margin-top:8px;text-transform:uppercase;letter-spacing:1.5px}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.about-text{opacity:0;transform:translateX(-40px)}
-.about-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:20px}
-.about-text p{color:var(--muted);margin-bottom:16px}
-.about-visual{opacity:0;transform:translateX(40px)}
-.about-frame{border-radius:var(--radius);border:1px solid var(--glass-border);background:var(--glass);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.about-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,162,39,.1),transparent 50%)}
-.about-frame .placeholder{color:var(--muted);font-size:.9rem;text-align:center;padding:20px}
-.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.contact-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px;opacity:0;transform:translateY(40px)}
-.contact-card h3{font-size:1.1rem;margin-bottom:16px;color:var(--gold)}
-.contact-card p,.contact-card a{color:var(--muted);text-decoration:none;font-size:.95rem;display:block;margin-bottom:10px;transition:color .3s}
-.contact-card a:hover{color:var(--text)}
-.contact-form{display:flex;flex-direction:column;gap:16px}
-.contact-form input,.contact-form textarea{background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;padding:14px 18px;color:var(--text);font-family:inherit;font-size:.95rem;transition:border-color .3s;outline:none}
-.contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold)}
-.contact-form textarea{resize:vertical;min-height:120px}
-footer{border-top:1px solid var(--glass-border);padding:40px 0;text-align:center;color:var(--muted);font-size:.8rem}
-@media(max-width:900px){.nav-links{display:none}.burger{display:flex}.hero-grid,.about-grid,.contacts-grid{grid-template-columns:1fr}.hero-visual{max-width:400px;margin:0 auto}section{padding:70px 0}}
-.nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;right:24px;background:var(--bg2);border:1px solid var(--glass-border);border-radius:16px;padding:20px;gap:16px;min-width:200px}
+:root {
+  --bg: #0c0b0a;
+  --bg-2: #161411;
+  --ink: #1a140c;
+  --brass: #c6a15a;
+  --brass-2: #e4cf9a;
+  --text: #f3eee6;
+  --muted: #c4bdb2;
+  --line: rgba(243, 238, 230, .14);
+  --header: 72px;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: Manrope, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 1.05rem; font-weight: 300; line-height: 1.65; }
+a { color: inherit; }
+button, input, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 3px; }
+.wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+nav { position: sticky; top: 0; z-index: 20; background: rgba(12, 11, 10, .94); border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
+.nav-inner { min-height: var(--header); display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.logo { font-family: var(--serif); font-size: 1.7rem; font-weight: 400; letter-spacing: .04em; text-decoration: none; color: var(--brass-2); }
+.nav-links { display: flex; gap: 22px; list-style: none; padding: 0; }
+.nav-links a { text-decoration: none; color: var(--muted); font-size: .92rem; }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); }
+.phone { color: var(--text); text-decoration: none; font-weight: 400; white-space: nowrap; }
+.phone:hover { color: var(--brass-2); }
+.burger { display: none; width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); font-size: 1.4rem; }
+.hero { padding: 56px 0 12px; }
+.hero .wrap { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.hero h1 { transform-origin: center center; }
+.hero .lead { margin-inline: auto; }
+.hero .actions, .hero .facts { justify-content: center; }
+.kicker { color: var(--brass); font-size: .78rem; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+h1, h2, .logo {
+  display: inline-block;
+  transform: scaleX(.92) scaleY(1.18);
+  transform-origin: left center;
+}
+h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.03em; text-wrap: balance; }
+h1 { font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: 1.05; max-width: 16ch; margin-bottom: 18px; }
+.lead { color: var(--muted); max-width: 40rem; margin-bottom: 26px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; text-decoration: none; font-weight: 400; border: 1px solid transparent; cursor: pointer; }
+.btn-primary { background: var(--brass); color: var(--ink); }
+.btn-primary:hover { background: var(--brass-2); }
+.btn-ghost { border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--brass); color: var(--brass-2); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: .92rem; }
+.facts strong { color: var(--text); font-weight: 400; }
+section { padding: 64px 0; }
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 22px; }
+h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.08; }
+.section-head p, .note { color: var(--muted); }
+.spectrum {
+  --card: 200px;
+  display: flex;
+  gap: 28px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 64px calc(50vw - var(--card) / 2) 72px 0;
+  scrollbar-width: none;
+}
+.spectrum::-webkit-scrollbar { display: none; }
+.service-card {
+  flex: 0 0 var(--card);
+  scroll-snap-align: center;
+  min-height: 148px;
+  padding: 18px 16px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform .42s cubic-bezier(.22, .8, .28, 1), border-color .42s ease, background .42s ease;
+  position: relative;
+  z-index: 1;
+}
+.service-card.is-selected {
+  transform: scale(1.55);
+  transform-origin: center center;
+  z-index: 2;
+  border-color: rgba(198, 161, 90, .75);
+  background: linear-gradient(180deg, rgba(198, 161, 90, .16), rgba(255,255,255,.04));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
+}
+.service-card:first-child.is-selected { transform-origin: left center; }
+.service-card em { font-style: normal; color: var(--brass); font-size: .75rem; font-weight: 400; letter-spacing: .08em; }
+.service-card strong { display: block; margin: 10px 0 6px; font-weight: 400; font-size: 1.12rem; line-height: 1.25; }
+.service-card span { color: var(--muted); font-size: .88rem; line-height: 1.45; }
+.prose { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 48px; }
+.prose p { color: var(--muted); }
+.prose p + p { margin-top: 14px; }
+.offices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.office, .form-card { padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg-2); }
+.office h3, .form-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.office p, .office a { color: var(--muted); text-decoration: none; }
+.office a:hover { color: var(--brass-2); }
+.contacts { display: grid; grid-template-columns: .9fr 1.1fr; gap: 18px; margin-top: 18px; }
+.form { display: flex; flex-direction: column; gap: 12px; }
+.form label { display: flex; flex-direction: column; gap: 6px; font-size: .86rem; font-weight: 400; }
+.form input, .form textarea { background: #0c0b0a; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 1rem; }
+.form textarea { min-height: 110px; resize: vertical; }
+.status { padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(198, 161, 90, .45); color: var(--brass-2); }
+footer { border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--muted); font-size: .88rem; }
+.footer-row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer a { color: var(--text); }
+@media (max-width: 900px) {
+  .prose, .contacts, .offices { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .burger { display: grid; place-items: center; }
+  .nav-links.open { display: flex; flex-direction: column; position: absolute; left: 0; right: 0; top: 100%; padding: 12px 20px 18px; background: #0c0b0a; border-bottom: 1px solid var(--line); }
+  .section-head { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 560px) { .actions { flex-direction: column; } .actions .btn { width: 100%; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .spectrum { scroll-behavior: auto; }
+  .service-card { transition: none; }
+}
 </style>
 </head>
 <body>
-<nav id="nav">
+<nav>
   <div class="wrap nav-inner">
-    <a href="#" class="logo">ПВМК</a>
+    <a class="logo" href="/">ПВМК</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#services">Услуги</a></li>
+      <li><a href="works/">Работы</a></li>
       <li><a href="#about">О комплексе</a></li>
-      <li><a href="#stats">Наши цифры</a></li>
-      <li><a href="#contacts" class="nav-cta">Связаться</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+      <li><button class="a11y-toggle" type="button" data-a11y-toggle aria-pressed="false">Для слабовидящих</button></li>
     </ul>
-    <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    <a class="phone" href="tel:+73422982959">+7 (342) 298-29-59</a>
+    <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">☰</button>
   </div>
 </nav>
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-content">
-      <div class="hero-badge">Пермский военно-мемориальный комплекс</div>
-      <h1>Память, <em>которую</em> сохраняют</h1>
-      <p>Ритуальные услуги, памятники и мемориальные комплексы в Перми. Создаём вечные символы с уважением к каждой истории.</p>
-      <div class="hero-actions">
-        <a href="#contacts" class="btn btn-primary">Оставить заявку</a>
-        <a href="#services" class="btn btn-ghost">Наши услуги</a>
+<main>
+  <header class="hero">
+    <div class="wrap">
+      <p class="kicker pop">ООО «Пермский военно-мемориальный комплекс»</p>
+      <h1 class="pop">Полный комплекс услуг</h1>
+      <p class="lead pop">Ритуальная продукция, проектирование и установка памятников из камня, мемориалы и благоустройство мест захоронения.</p>
+      <div class="actions pop">
+        <a class="btn btn-primary" href="#contacts">Оставить заявку</a>
+        <a class="btn btn-ghost" href="tel:+73422982959">Круглосуточный телефон</a>
+      </div>
+      <p class="facts pop"><strong>ш. Космонавтов, 403</strong><span>производство и офис</span><span>пн–пт, 9:00–18:00</span></p>
+    </div>
+  </header>
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head pop">
+        <h2>Спектр услуг</h2>
+        <p class="note">Фотографии работ лежат отдельно, в <a href="works/">каталоге</a>.</p>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-orb">
-        <div class="hero-orb-inner">
-          <span class="num" data-count="25">0</span>
-          <span class="lbl">лет опыта</span>
+      <div class="spectrum" id="spectrum" tabindex="0" aria-label="Спектр услуг">
+          <a class="service-card" href="works/"><em>Каталог</em><strong>Работы</strong><span>Открыть примеры памятников: порода камня и форма стелы</span></a>
+          <a class="service-card" href="memory/"><em>Проект</em><strong>Книга памяти</strong><span>Человек жив, пока жива память о нём</span></a>
+          <a class="service-card" href="#about"><em>01</em><strong>Ритуальные услуги</strong><span>Полный комплекс и ассортимент ритуальной продукции</span></a>
+          <a class="service-card" href="works/"><em>02</em><strong>Гранитные</strong><span>Памятники из гранита разных пород</span></a>
+          <a class="service-card" href="works/"><em>03</em><strong>Мраморные</strong><span>Памятники из мрамора</span></a>
+          <a class="service-card" href="works/"><em>04</em><strong>Семейные</strong><span>Общий памятник, если могилы рядом</span></a>
+          <a class="service-card" href="works/"><em>05</em><strong>Комплексы</strong><span>Мемориалы и комплексы под ключ</span></a>
+          <a class="service-card" href="#about"><em>06</em><strong>Конфессиональные</strong><span>С учётом религиозных традиций семьи</span></a>
+          <a class="service-card" href="#about"><em>07</em><strong>Льготные</strong><span>Для льготных категорий, за счёт государства</span></a>
+          <a class="service-card" href="#about"><em>08</em><strong>Реставрация</strong><span>Памятники и мемориальные доски</span></a>
+          <a class="service-card" href="#about"><em>09</em><strong>Оградки</strong><span>Ограждение места захоронения</span></a>
+          <a class="service-card" href="#about"><em>10</em><strong>Столы и лавки</strong><span>Каменные столы и скамьи</span></a>
+          <a class="service-card" href="#about"><em>11</em><strong>Вазы</strong><span>Вазы и аксессуары из камня или бронзы</span></a>
+          <a class="service-card" href="#about"><em>12</em><strong>Благоустройство</strong><span>Плитка, облицовка, уход, хранение и установка</span></a>
+    </div>
+  </section>
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head pop"><h2>О комплексе</h2></div>
+      <div class="prose">
+        <div class="pop">
+          <p>ООО «Пермский военно-мемориальный комплекс» с начала своего основания занимается изготовлением памятников и мемориалов, реставрацией и работами по содержанию и благоустройству мест захоронения.</p>
+          <p>Граверы и специалисты по обработке камня проходят повышение квалификации. Заказать памятник можно в любое время по круглосуточному телефону.</p>
+        </div>
+        <div class="pop">
+          <p>Изготавливаем памятники из гранита и мрамора, наносим портреты, проектируем мемориалы и малые архитектурные формы. К каждому заказу подходим индивидуально и без шаблонов.</p>
+          <p>При сложном заказе готовим несколько вариантов 3D-моделей, затем выполняем граверные работы. Скульпторы делают бюст, статую или барельеф.</p>
         </div>
       </div>
     </div>
-  </div>
-</header>
-<section id="services">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Что мы делаем</div>
-      <h2>Услуги</h2>
-      <p>Полный цикл ритуальных услуг — от консультации до установки мемориала</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card"><div class="icon">🗿</div><h3>Памятники</h3><p>Изготовление и установка памятников из гранита, мрамора и других материалов. Индивидуальный дизайн под любой бюджет.</p></div>
-      <div class="service-card"><div class="icon">🕯️</div><h3>Ритуальные услуги</h3><p>Организация похорон и поминок, помощь в документах, транспорт, сопровождение на всех этапах.</p></div>
-      <div class="service-card"><div class="icon">⚔️</div><h3>Военные мемориалы</h3><p>Специализация на воинских захоронениях, обелисках и мемориальных плитах для ветеранов.</p></div>
-      <div class="service-card"><div class="icon">🌿</div><h3>Озеленение и благоустройство</h3><p>Оформление могильных участков, посадка растений, установка ограждений и столиков.</p></div>
-      <div class="service-card"><div class="icon">🔨</div><h3>Реставрация</h3><p>Восстановление и реставрация существующих памятников и мемориальных конструкций.</p></div>
-      <div class="service-card"><div class="icon">📋</div><h3>Консультации</h3><p>Бесплатные консультации по выбору материалов, форм и способов увековечения памяти.</p></div>
-    </div>
-  </div>
-</section>
-<section class="stats" id="stats">
-  <div class="wrap">
-    <div class="stats-grid">
-      <div class="stat-item"><div class="value" data-count="2500">0</div><div class="label">Установленных памятников</div></div>
-      <div class="stat-item"><div class="value" data-count="18000">0</div><div class="label">Обслуженных семей</div></div>
-      <div class="stat-item"><div class="value" data-count="25">0</div><div class="label">Лет на рынке</div></div>
-      <div class="stat-item"><div class="value" data-count="40">0</div><div class="label">Мастеров в команде</div></div>
-    </div>
-  </div>
-</section>
-<section id="about">
-  <div class="wrap about-grid">
-    <div class="about-text">
-      <div class="eyebrow" style="color:var(--gold);font-size:.8rem;text-transform:uppercase;letter-spacing:3px;margin-bottom:12px">О нас</div>
-      <h2>Пермский военно-мемориальный комплекс</h2>
-      <p>Мы работаем с 2001 года и специализируемся на создании мемориалов, которые передают уважение и память через поколения.</p>
-      <p>Наш комплекс расположен на шоссе Космонавтов, 403 — здесь вы можете увидеть примеры работ, выбрать материал и обсудить проект с мастером.</p>
-      <p>Каждый памятник — это история. Мы помогаем рассказать её достойно.</p>
-    </div>
-    <div class="about-visual">
-      <div class="about-frame"><div class="placeholder">Фото комплекса<br>или пример работы</div></div>
-    </div>
-  </div>
-</section>
-<section id="contacts">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Контакты</div>
-      <h2>Свяжитесь с нами</h2>
-      <p>Приедем на консультацию, подскажем по материалам и срокам</p>
-    </div>
-    <div class="contacts-grid">
-      <div class="contact-card">
-        <h3>Адрес и телефон</h3>
-        <p>📍 Пермь, ш. Космонавтов, 403</p>
-        <a href="tel:+73422982959">📞 (342) 298-29-59</a>
-        <a href="https://t.me/stvnislvvv" target="_blank">✈️ Telegram: @stvnislvvv</a>
-        <p>🕐 Пн–Пт: 9:00–18:00, Сб: 10:00–15:00</p>
+  </section>
+  <section id="contacts">
+    <div class="wrap">
+      <div class="section-head pop"><h2>Адреса и телефон</h2></div>
+      <div class="offices">
+        <article class="office pop">
+          <h3>ш. Космонавтов, 403</h3>
+          <p>Производство и офис. Пн–пт, 9:00–18:00. Суббота и воскресенье — выходной.</p>
+          <p><a href="tel:+73422982959">+7 (342) 298-29-59</a>, круглосуточно</p>
+          <p><a href="tel:+73422946052">+7 (342) 294-60-52</a></p>
+        </article>
+        <article class="office pop">
+          <h3>ул. Героев Хасана, 7</h3>
+          <p>Офис в Свердловском районе.</p>
+        </article>
+        <article class="office pop">
+          <h3>ул. Маршала Рыбалко, 109</h3>
+          <p>Офис в Кировском районе.</p>
+        </article>
       </div>
-      <div class="contact-card">
-        <h3>Оставить заявку</h3>
-        <form class="contact-form" onsubmit="event.preventDefault();this.reset();alert('Заявка отправлена! Мы свяжемся с вами.')">
-          <input type="text" placeholder="Ваше имя" required>
-          <input type="tel" placeholder="Телефон" required>
-          <textarea placeholder="Какой памятник или услуга вас интересует?"></textarea>
-          <button type="submit" class="btn btn-primary">Отправить</button>
+      <div class="contacts">
+        <article class="office pop">
+          <h3>Как добраться до производства</h3>
+          <p>Автобусы № 42, 98, 22т до остановки «Олимпиец», следующей после Верхних Муллов, либо пригородные автобусы в сторону Большого Савино.</p>
+          <p style="margin-top:10px"><a href="http://permvmk.ru/">permvmk.ru</a></p>
+        </article>
+        <form class="form-card form pop" id="contactForm">
+          <h3>Оставить заявку</h3>
+          <p class="status" id="formStatus" role="status" tabindex="-1" hidden>Заявка отправлена. Мы свяжемся с вами.</p>
+          <label>Ваше имя<input name="name" autocomplete="name" required></label>
+          <label>Телефон<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+          <label>Какая услуга вас интересует?<textarea name="message"></textarea></label>
+          <button class="btn btn-primary" type="submit">Отправить</button>
         </form>
       </div>
     </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap footer-row">
+    <p>ООО «Пермский военно-мемориальный комплекс». Полный комплекс похоронных услуг и ритуальной продукции, производство и установка памятников и мемориалов.</p>
+    <p><a href="tel:+73422982959">+7 (342) 298-29-59</a></p>
   </div>
-</section>
-<footer><div class="wrap">© 2026 ПВМК — Пермский военно-мемориальный комплекс. Демо-версия.</div></footer>
+</footer>
 <script>
-gsap.registerPlugin(ScrollTrigger);
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);});
-document.getElementById('burger').addEventListener('click',()=>{document.getElementById('navLinks').classList.toggle('open');});
-const heroTl=gsap.timeline({delay:.3});
-heroTl.to('.hero-badge',{opacity:1,y:0,duration:.8,ease:'power3.out'}).to('.hero h1',{opacity:1,y:0,duration:1,ease:'power3.out'},'-=.4').to('.hero p',{opacity:1,y:0,duration:.8,ease:'power3.out'},'-=.5').to('.hero-actions',{opacity:1,y:0,duration:.8,ease:'power3.out'},'-=.4').to('.hero-visual',{opacity:1,scale:1,duration:1.2,ease:'power3.out'},'-=.8);
-gsap.utils.toArray('.section-head .eyebrow,.section-head h2,.section-head p').forEach(el=>{gsap.to(el,{opacity:1,y:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'}});});
-gsap.utils.toArray('.service-card').forEach((card,i)=>{gsap.to(card,{opacity:1,y:0,duration:.8,ease:'power3.out',delay:i*.1,scrollTrigger:{trigger:card,start:'top 85%'}});});
-gsap.utils.toArray('.stat-item').forEach((item,i)=>{gsap.to(item,{opacity:1,y:0,duration:.8,ease:'power3.out',delay:i*.15,scrollTrigger:{trigger:item,start:'top 85%'}});const val=item.querySelector('.value');const target=+val.dataset.count;ScrollTrigger.create({trigger:item,start:'top 85%',once:true,onEnter:()=>{gsap.to({v:0},{v:target,duration:2,ease:'power2.out',onUpdate:function(){val.textContent=Math.round(this.targets()[0].v).toLocaleString('ru-RU');}});});});
-gsap.to('.about-text',{opacity:1,x:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.about-text',start:'top 80%'}});
-gsap.to('.about-visual',{opacity:1,x:0,duration:1,ease:'power3.out',delay:.2,scrollTrigger:{trigger:'.about-visual',start:'top 80%'}});
-gsap.utils.toArray('.contact-card').forEach((card,i)=>{gsap.to(card,{opacity:1,y:0,duration:.8,ease:'power3.out',delay:i*.2,scrollTrigger:{trigger:card,start:'top 85%'}});});
+(function () {
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('navLinks');
+  burger.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Меню');
+    burger.textContent = open ? '×' : '☰';
+  });
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { links.classList.remove('open'); burger.textContent = '☰'; });
+  });
+  var form = document.getElementById('contactForm');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    form.reset();
+    var status = document.getElementById('formStatus');
+    status.hidden = false;
+    status.focus();
+  });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.pop').forEach(function (el) {
+    gsap.from(el, {
+      opacity: 0,
+      duration: 0.85,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+    });
+  });
+})();
+(function () {
+  var row = document.getElementById('spectrum');
+  if (!row) return;
+  var cards = Array.prototype.slice.call(row.querySelectorAll('.service-card'));
+  var frame = 0;
+  var hovered = null;
+  function centerOf(card) {
+    return card.offsetLeft + card.offsetWidth / 2;
+  }
+  function apply(chosen) {
+    cards.forEach(function (card) {
+      var on = card === chosen;
+      card.classList.toggle('is-selected', on);
+      if (on) card.setAttribute('aria-current', 'true');
+      else card.removeAttribute('aria-current');
+    });
+  }
+  function nearest() {
+    var mid = row.scrollLeft + row.clientWidth / 2;
+    var chosen = cards[0];
+    var best = Infinity;
+    cards.forEach(function (card) {
+      var distance = Math.abs(centerOf(card) - mid);
+      if (distance < best) { best = distance; chosen = card; }
+    });
+    return chosen;
+  }
+  function pick() {
+    apply(hovered || nearest());
+  }
+  function schedule() {
+    if (frame) return;
+    frame = requestAnimationFrame(function () { frame = 0; pick(); });
+  }
+  cards.forEach(function (card) {
+    card.addEventListener('mouseenter', function () {
+      hovered = card;
+      apply(card);
+    });
+    card.addEventListener('focus', function () {
+      hovered = card;
+      apply(card);
+    });
+  });
+  row.addEventListener('mouseleave', function () {
+    hovered = null;
+    apply(nearest());
+  });
+  row.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  row.addEventListener('wheel', function (event) {
+    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+    event.preventDefault();
+    row.scrollBy({ left: event.deltaY, behavior: 'auto' });
+  }, { passive: false });
+  pick();
+})();
 </script>
 </body>
 </html>
