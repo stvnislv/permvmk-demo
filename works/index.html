@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../a11y.css">
+<script src="../a11y.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -77,6 +79,7 @@ footer a { color: var(--text); }
       <li><a href="../memory/">Книга памяти</a></li>
       <li><a href="../#about">О комплексе</a></li>
       <li><a href="../#contacts">Контакты</a></li>
+      <li><button class="a11y-toggle" type="button" data-a11y-toggle aria-pressed="false">Для слабовидящих</button></li>
     </ul>
     <a class="phone" href="tel:+73422982959">+7 (342) 298-29-59</a>
     <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false">☰</button>
